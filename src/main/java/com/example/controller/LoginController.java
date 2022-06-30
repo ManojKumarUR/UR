@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import antlr.collections.List;
 import com.example.entity.Registration;
 import com.example.pojo.LoginForm;
 import com.example.pojo.RegistrationForm;
@@ -11,16 +10,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import java.util.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import javax.persistence.Id;
+@Controller
+public class LoginController {
 
-@Controller("/")
-public class ExampleController {
     private final Users userRepository;
 
-    public ExampleController(Users userRepository) {
+    public LoginController(Users userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -80,7 +76,9 @@ public class ExampleController {
 
     @GetMapping("/success")
     public String Success(){
-        return "RegestrationSuccdessful";
+        return "RegistrationSuccessful";
     }
+
+
 
 }
