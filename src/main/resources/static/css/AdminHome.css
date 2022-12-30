@@ -1,0 +1,20 @@
+body
+{
+    color: #6D14C4;
+}
+a {
+    background-color: red;
+    color: white;
+    padding: 1.5em;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+a:hover {
+    background-color: #555;
+}
+
+a:active {
+    background-color: black;
+}
+
