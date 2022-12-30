@@ -59,18 +59,17 @@ public class LoginController {
         Registration obj=userRepository.findByName(username);
         if(password.equals(obj.getPassword()))
         {
-            return ResponseEntity.ok().build();
-        }
-
-
-//        if(registration.getUsername()){
-//            System.out.println("hello");
-//        }
-        if(username.equals("hello") && password.equals("123")){
-            return  ResponseEntity.ok().build();
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/adminHome");
+            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+            //   return ResponseEntity.ok().build();
         }
         else{
-            return ResponseEntity.badRequest().build();
+//            return ResponseEntity.badRequest().build();
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Location", "/error");
+            return new ResponseEntity<String>(headers, HttpStatus.FOUND);
         }
     }
 
@@ -78,6 +77,14 @@ public class LoginController {
     public String Success(){
         return "RegistrationSuccessful";
     }
+
+    @GetMapping("/error")
+    public String Error(){
+        return "Error";
+    }
+
+    @GetMapping("/adminHome")
+    public String adminHome(){ return "adminHome";}
 
 
 

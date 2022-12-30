@@ -1,17 +1,21 @@
 <head>
 
     <title>Add Products</title></head>
+<link rel="stylesheet" href="css/common.css">
 <body>
 <form action="/addProduct" method="post">
-    <label>name:</label><br>
-    <input type="text"  name="name"><br>
+    <label for="name">name:</label><br>
+    <input type="text"  name="name" id="name"><br>
 
-    <label>Price:</label><br>
-    <input type="text" name="price"><br>
+    <label>Price:<br>
+    <input type="text" name="price"><br></label>
 
-    <label>Available Quantity:</label><br>
-    <input type="text"  name="availableQuantity"><br><br>
+    <label>Available Quantity:<br>
+    <input type="text"  name="availableQuantity"><br></label>
+    <br>
 
     <input type="submit" value="Add">
 </form>
+
+<form action="removeProduct.html"><button>Remove Product</button></form>
 </body>

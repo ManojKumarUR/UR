@@ -9,15 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
 @Controller
+/**
+
+ */
 public class AdminController {
 
     private final Product productRepositary;
-
+    int price=0;
 
     public AdminController(Product productRepositary) { this.productRepositary = productRepositary; }
 
@@ -40,23 +46,49 @@ public class AdminController {
         return new ResponseEntity<String>(headers, HttpStatus.FOUND);
     }
 
-    @GetMapping("/bill")
-    public String openBill(){
+    @GetMapping("/removeProduct")
+    public String openRemoveProduct(){return "removeProduct";}
+
+    @PostMapping("/removeProduct")
+    public  ResponseEntity<?> removeProduct(ProductForm productForm){
+        Products product =new Products();
+        String name= productForm.getName();
+
+        product =productRepositary.findByName(name);
+        int id = product.getId();
+        productRepositary.deleteById(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", "/success");
+        return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+    }
+
+    @RequestMapping("/bill")
+    public String openBill(Model model, @ModelAttribute("product") Products product){
+
+        product.setPrice(15);
         return "bill";
     }
 
-    @PostMapping("/bill")
-    public ResponseEntity<?> bill(String name,int quantity){
-        System.out.println(name+" "+quantity);
-        Products obj=productRepositary.findByName(name);
-        int price=obj.getPrice();
-        ArrayList<Product> arr= new ArrayList<Product>();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/bill");
-        return new ResponseEntity<String>(headers, HttpStatus.FOUND);
-
-    }
-
+//    @RequestMapping("/bill")
+//    public String bill(HttpServletRequest request, Model theModel){
+//
+//            String name = request.getParameter("name");
+////        String quantity=request.getParameter("quantity");
+////        int quantity1=Integer.parseInt(quantity);
+////        System.out.println(name+" "+quantity1);
+//            System.out.println(name);
+//            Products obj = productRepositary.findByName(name);
+//            price = obj.getPrice();
+//            theModel.addAttribute("Price", price);
+////        ArrayList<Product> arr= new ArrayList<Product>();
+////
+////        HttpHeaders headers = new HttpHeaders();
+////        headers.add("Location", "/bill");
+////        return new ResponseEntity<String>(headers, HttpStatus.FOUND);
+//
+//        return "bill";
+//    }
 
 }
